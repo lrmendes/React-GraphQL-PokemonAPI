@@ -1,22 +1,22 @@
 {
   "files": {
-    "main.css": "/React-GraphQL-PokemonAPI/static/css/main.5ecd60fb.chunk.css",
-    "main.js": "/React-GraphQL-PokemonAPI/static/js/main.32e497ea.chunk.js",
-    "main.js.map": "/React-GraphQL-PokemonAPI/static/js/main.32e497ea.chunk.js.map",
+    "main.css": "/React-GraphQL-PokemonAPI/static/css/main.4cfb0791.chunk.css",
+    "main.js": "/React-GraphQL-PokemonAPI/static/js/main.fbb5e7b6.chunk.js",
+    "main.js.map": "/React-GraphQL-PokemonAPI/static/js/main.fbb5e7b6.chunk.js.map",
     "runtime-main.js": "/React-GraphQL-PokemonAPI/static/js/runtime-main.f05ad6b4.js",
     "runtime-main.js.map": "/React-GraphQL-PokemonAPI/static/js/runtime-main.f05ad6b4.js.map",
-    "static/js/2.805006f3.chunk.js": "/React-GraphQL-PokemonAPI/static/js/2.805006f3.chunk.js",
-    "static/js/2.805006f3.chunk.js.map": "/React-GraphQL-PokemonAPI/static/js/2.805006f3.chunk.js.map",
+    "static/js/2.6a5cedce.chunk.js": "/React-GraphQL-PokemonAPI/static/js/2.6a5cedce.chunk.js",
+    "static/js/2.6a5cedce.chunk.js.map": "/React-GraphQL-PokemonAPI/static/js/2.6a5cedce.chunk.js.map",
     "index.html": "/React-GraphQL-PokemonAPI/index.html",
-    "precache-manifest.e9a96b93f116ca56dd32c34f85eae91b.js": "/React-GraphQL-PokemonAPI/precache-manifest.e9a96b93f116ca56dd32c34f85eae91b.js",
+    "precache-manifest.8744d250da008d88298608def3456393.js": "/React-GraphQL-PokemonAPI/precache-manifest.8744d250da008d88298608def3456393.js",
     "service-worker.js": "/React-GraphQL-PokemonAPI/service-worker.js",
-    "static/css/main.5ecd60fb.chunk.css.map": "/React-GraphQL-PokemonAPI/static/css/main.5ecd60fb.chunk.css.map",
-    "static/js/2.805006f3.chunk.js.LICENSE.txt": "/React-GraphQL-PokemonAPI/static/js/2.805006f3.chunk.js.LICENSE.txt"
+    "static/css/main.4cfb0791.chunk.css.map": "/React-GraphQL-PokemonAPI/static/css/main.4cfb0791.chunk.css.map",
+    "static/js/2.6a5cedce.chunk.js.LICENSE.txt": "/React-GraphQL-PokemonAPI/static/js/2.6a5cedce.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.f05ad6b4.js",
-    "static/js/2.805006f3.chunk.js",
-    "static/css/main.5ecd60fb.chunk.css",
-    "static/js/main.32e497ea.chunk.js"
+    "static/js/2.6a5cedce.chunk.js",
+    "static/css/main.4cfb0791.chunk.css",
+    "static/js/main.fbb5e7b6.chunk.js"
   ]
 }
