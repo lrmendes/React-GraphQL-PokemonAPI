@@ -9,7 +9,9 @@ import { InMemoryCache } from 'apollo-cache-inmemory';
 import { HttpLink } from 'apollo-link-http';
 import { ApolloProvider } from '@apollo/react-hooks';
 
-const cache = new InMemoryCache();
+const cache = new InMemoryCache({
+  addTypename: false
+});
 const link = new HttpLink({
   uri: 'https://graphql-pokemon.now.sh/'
 })
