@@ -1,23 +1,23 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "a8bfc910829b2bf6ba7b61153038b864",
+    "revision": "0d65c195b664295bb8db4d0730ba0ae3",
     "url": "/React-GraphQL-PokemonAPI/index.html"
   },
   {
-    "revision": "0d4c166c9d0e5315bd0b",
+    "revision": "497af637042cac81a2f2",
     "url": "/React-GraphQL-PokemonAPI/static/css/main.4cfb0791.chunk.css"
   },
   {
-    "revision": "0920adc21cb1034d24f9",
-    "url": "/React-GraphQL-PokemonAPI/static/js/2.6a5cedce.chunk.js"
+    "revision": "2ad195657a87c04efe63",
+    "url": "/React-GraphQL-PokemonAPI/static/js/2.11716735.chunk.js"
   },
   {
     "revision": "bb0d2e924b7b6743d70dbdc0ece34a4f",
-    "url": "/React-GraphQL-PokemonAPI/static/js/2.6a5cedce.chunk.js.LICENSE.txt"
+    "url": "/React-GraphQL-PokemonAPI/static/js/2.11716735.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "0d4c166c9d0e5315bd0b",
-    "url": "/React-GraphQL-PokemonAPI/static/js/main.fbb5e7b6.chunk.js"
+    "revision": "497af637042cac81a2f2",
+    "url": "/React-GraphQL-PokemonAPI/static/js/main.726f478f.chunk.js"
   },
   {
     "revision": "7be83e074daddde498e7",
