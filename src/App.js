@@ -26,6 +26,8 @@ const styles = makeStyles((theme) => ({
     background: 'linear-gradient(45deg, #3B3B3B 30%, #515151 90%)',
     borderRadius: 10,
     color: '#ffffff',
+    overflow: 'scroll',
+    outline: 'none',
     minHeight: '250px',
   },
   firstGrid: {
@@ -45,10 +47,10 @@ function App() {
     weight: false,                 // Array PokemonWeight
     height: false,                 // Array PokemonDimension
     cbClassification: false, 
-    types: false,                  // Array String
-    resistant: false,              // Array String
+    cbTypes: false,                  // Array String
+    cbResistant: false,              // Array String
     attacks: false,                // Array PokemonAttack
-    weakness: false,               // Array String
+    cbWeaknesses: false,               // Array String
     cbFleeRate: false,
     cbMaxCP: false,
     evolutions: false,             // Array Pokemon
@@ -56,13 +58,19 @@ function App() {
     cbMaxHP: false,
     cbImage: true,
   });
-  const [onlyOne, setOnlyOne] = useState(false);
 
   const [state, setState] = React.useState({
     cbId: false,
     cbNumber: true,
     cbName: true,
     cbImage: true,
+    cbClassification: false,
+    cbFleeRate: false,
+    cbMaxCP: false,
+    cbMaxHP: false,
+    cbTypes: false,
+    cbResistant: false,
+    cbWeaknesses: false,
   });
 
   const [stringQuery, setStringQuery] = useState(`{\n  pokemons(first: 30) {\n\tnumber,\n\tname,\n\timage,\n  }\n}`);
@@ -76,6 +84,10 @@ function App() {
     (query.cbFleeRate !== false ? newQuery = newQuery.concat("\tfleeRate,\n") : newQuery = newQuery.concat(""));
     (query.cbMaxCP !== false ? newQuery = newQuery.concat("\tmaxCP,\n") : newQuery = newQuery.concat(""));
     (query.cbMaxHP !== false ? newQuery = newQuery.concat("\tmaxHP,\n") : newQuery = newQuery.concat(""));
+    (query.cbTypes !== false ? newQuery = newQuery.concat("\ttypes,\n") : newQuery = newQuery.concat(""));
+    (query.cbResistant !== false ? newQuery = newQuery.concat("\tresistant,\n") : newQuery = newQuery.concat(""));
+    (query.cbWeaknesses !== false ? newQuery = newQuery.concat("\tweaknesses,\n") : newQuery = newQuery.concat(""));
+
     (query.cbImage !== false ? newQuery = newQuery.concat("\timage,\n") : newQuery = newQuery.concat(""));
     newQuery = newQuery.concat(`  }\n}`);
 
@@ -104,17 +116,45 @@ function App() {
   }`);
   */
 
-  const GET_POKEMON_INFO = gql(`
-  {
-    pokemons(first: 30) {
-      number,
-      name,
-      image,
-    }
-  }`);
+  const GET_POKEMON_INFO = gql(stringQuery);
   const {data, loading, error} = useQuery(GET_POKEMON_INFO);
 
+  function isOneCheckedQuery1() {
+    let checked = 0;
+    if (state.cbId) 
+      checked += 1;
+    if (state.cbNumber) 
+      checked += 1;
+    if (state.cbName) 
+      checked += 1;
+    if (state.cbImage) 
+      checked += 1;
+    if (state.cbFleeRate) 
+      checked += 1;
+    if (state.cbMaxCP) 
+      checked += 1;
+    if (state.cbMaxHP) 
+      checked += 1;
+    if (state.cbTypes) 
+      checked += 1;
+    if (state.cbResistant) 
+      checked += 1;
+    if (state.cbWeaknesses) 
+      checked += 1;
+
+    if (checked > 1) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   const handleChange = (event) => {
+    if (!event.target.checked) {
+      if (!isOneCheckedQuery1()) {
+        return alert("Almost one item need to exists in the query!")
+      }
+    }
     setState({ ...state, [event.target.name]: event.target.checked });
     setQuery({...query, [event.target.name]: event.target.checked})
   };
@@ -122,6 +162,10 @@ function App() {
   useEffect(() => {
     createQuery();
   },[query]);
+
+  function graphSearch() {
+    GET_POKEMON_INFO = gql()
+  }
 
   const classes = styles();
 
@@ -137,9 +181,13 @@ function App() {
               <Divider orientation="horizontal" />
             </Box>
             <Grid container direction="row" spacing={2}>
+            <Grid item xs={12} sm={12}>
+
+            </Grid>
             <Grid item xs={6} sm={6}>
               <Paper className={classes.paper2}>
                 <Typography variant="body1">Pokemon Attributes</Typography>
+                <Grid item container justify="space-between">
                 <FormControlLabel
                   control={<Checkbox checked={state.cbId} onChange={handleChange} name="cbId" />}
                   label="ID"
@@ -157,29 +205,65 @@ function App() {
                   control={<Checkbox checked={state.cbImage} onChange={handleChange} name="cbImage" />}
                   label="Image"
                 />
+
+                <FormControlLabel
+                  control={<Checkbox checked={state.cbClassification} onChange={handleChange} name="cbClassification" />}
+                  label="Classification"
+                />
+
+                <FormControlLabel
+                  control={<Checkbox checked={state.cbFleeRate} onChange={handleChange} name="cbFleeRate" />}
+                  label="Flee Rate"
+                />
+
+                <FormControlLabel
+                  control={<Checkbox checked={state.cbMaxCP} onChange={handleChange} name="cbMaxCP" />}
+                  label="Max CP"
+                />
+
+                <FormControlLabel
+                  control={<Checkbox checked={state.cbMaxHP} onChange={handleChange} name="cbMaxHP" />}
+                  label="Max HP"
+                />
+
+                <FormControlLabel
+                  control={<Checkbox checked={state.cbTypes} onChange={handleChange} name="cbTypes" />}
+                  label="Types"
+                />                
+                
+              <FormControlLabel
+                control={<Checkbox checked={state.cbResistant} onChange={handleChange} name="cbResistant" />}
+                label="Resistant"
+              />                
+            
+              <FormControlLabel
+                control={<Checkbox checked={state.cbWeaknesses} onChange={handleChange} name="cbWeaknesses" />}
+                label="Weaknesses"
+              /> 
+              </Grid>
               </Paper>
               </Grid>
               <Grid item xs={6} sm={6}>
               <Paper className={classes.paper2}>
               <Typography variant="body1">Evolution Attributes</Typography>
               <FormControlLabel
-                control={<Checkbox checked={state.checkedA} onChange={handleChange} name="checkedA" />}
+                control={<Checkbox checked={state.checkedA} disabled onChange={handleChange} name="checkedA" />}
                 label="ID"
               />
               <FormControlLabel
-                control={<Checkbox checked={state.checkedB} onChange={handleChange} name="checkedB" />}
+                control={<Checkbox checked={state.checkedB} disabled onChange={handleChange} name="checkedB" />}
                 label="Number"
               />
               <FormControlLabel
-                control={<Checkbox checked={state.checkedC} onChange={handleChange} name="checkedC" />}
+                control={<Checkbox checked={state.checkedC} disabled onChange={handleChange} name="checkedC" />}
                 label="Name"
               />
               <FormControlLabel
-                control={<Checkbox checked={state.checkedD} onChange={handleChange} name="checkedD" />}
+                control={<Checkbox checked={state.checkedD} disabled onChange={handleChange} name="checkedD" />}
                 label="Image"
               />
               </Paper>
-              </Grid> 
+              </Grid>
             </Grid>
           </Paper>
         </Grid>
@@ -190,6 +274,11 @@ function App() {
               <Divider orientation="horizontal" />
             </Box>
             <textarea readOnly className={classes.customArea} value={stringQuery}></textarea>
+            <Box pt={1}>
+              <Grid container item alignItems="center" justify="center">
+              Try that query in the official Graphql server: <a href="https://graphql-pokemon.now.sh" target="_blank">https://graphql-pokemon.now.sh</a>
+              </Grid> 
+            </Box>
           </Paper>
         </Grid>
             { console.log(data) }
@@ -201,12 +290,18 @@ function App() {
               <Grid item xs={12} sm={3} key={index}>
                 <Paper className={classes.paper2}>
                 {pokemon.image ? <img src={pokemon.image} className={classes.pokeImg} alt="Pokemon"/> : null}
-                {pokemon.id ? <Typography>ID: {pokemon.id}</Typography> : null}
-                {pokemon.number ? <Typography>Number: {pokemon.number}</Typography> : null}
-                {pokemon.name ? <Typography>Name: {pokemon.name}</Typography> : null}
-                {pokemon.weight ? <Typography>Weight: {pokemon.weight}</Typography> : null}
-                {pokemon.height ? <Typography>Height: {pokemon.height}</Typography> : null}
-                {pokemon.classification ? <Typography>Classification: {pokemon.classification}</Typography> : null}
+                {pokemon.id ? <Typography><b>ID:</b> {pokemon.id}</Typography> : null}
+                {pokemon.number ? <Typography><b>Number:</b> {pokemon.number}</Typography> : null}
+                {pokemon.name ? <Typography><b>Name:</b> {pokemon.name}</Typography> : null}
+                {pokemon.weight ? <Typography><b>Weight:</b> {pokemon.weight}</Typography> : null}
+                {pokemon.height ? <Typography><b>Height:</b> {pokemon.height}</Typography> : null}
+                {pokemon.classification ? <Typography><b>Classification:</b> {pokemon.classification}</Typography> : null}
+                {pokemon.fleeRate ? <Typography><b>Flee Rate:</b> {(pokemon.fleeRate*100).toFixed(2)}% </Typography> : null}
+                {pokemon.maxCP ? <Typography><b>Max CP:</b> {pokemon.maxCP}</Typography> : null}
+                {pokemon.maxHP ? <Typography><b>Max HP:</b> {pokemon.maxHP}</Typography> : null}
+                {pokemon.types ? <Typography><b>Types:</b> {pokemon.types.toString()} </Typography> : null}
+                {pokemon.resistant ? <Typography><b>Resistant:</b> {pokemon.resistant.toString()} </Typography> : null}
+                {pokemon.weaknesses ? <Typography><b>Weaknesses:</b> {pokemon.weaknesses.toString()} </Typography> : null}
                 </Paper>
               </Grid>
               ))
@@ -219,7 +314,7 @@ function App() {
           <Box p={2}>
             <Divider orientation="horizontal" />
           </Box>
-          <textarea readOnly className={classes.customArea} value={data ? data.pokemons ? `{"pokemons":[\n` + data.pokemons.map((pokemon,index) => (JSON.stringify(pokemon)+"\n")) + "]}" : "" : ""}></textarea>
+          <textarea wrap="off" readOnly className={classes.customArea} value={data ? data.pokemons ? `{"pokemons":[\n` + data.pokemons.map((pokemon,index) => (JSON.stringify(pokemon)+"\n")) + "]}" : "" : ""}></textarea>
         </Paper>
       </Grid>
     </Grid>
