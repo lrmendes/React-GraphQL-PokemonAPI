@@ -194,8 +194,8 @@ function App() {
 
   const handleChange = (event) => {
     if (!event.target.checked) {
-      if (event.target.name == "cbEvolutionId" ||event.target.name == "cbEvolutionNumber" ||
-          event.target.name == "cbEvolutionImage" ||event.target.name == "cbEvolutionName" ) {
+      if (event.target.name === "cbEvolutionId" ||event.target.name === "cbEvolutionNumber" ||
+          event.target.name === "cbEvolutionImage" ||event.target.name === "cbEvolutionName" ) {
             if (!isOneCheckedQuery2()) {
               return alert("GraphQL needs at least one variable in the Evolutions Query!")
             }    
@@ -212,10 +212,6 @@ function App() {
   useEffect(() => {
     createQuery();
   },[query]);
-
-  function graphSearch() {
-    GET_POKEMON_INFO = gql()
-  }
 
   const classes = styles();
 
@@ -234,7 +230,7 @@ function App() {
             <Grid item xs={12} sm={12}>
 
             </Grid>
-            <Grid item xs={6} sm={6}>
+            <Grid item xs={12} sm={6}>
               <Paper className={classes.paper2}>
                 <Typography variant="body1">Pokemon Attributes</Typography>
                 <Divider orientation="horizontal" />
@@ -300,7 +296,7 @@ function App() {
               </Grid>
               </Paper>
               </Grid>
-              <Grid item xs={6} sm={6}>
+              <Grid item xs={12} sm={6}>
               <Paper className={classes.paper2}>
               <Typography variant="body1">Pokemon Evolutions</Typography>
               <Divider orientation="horizontal" />
@@ -342,7 +338,6 @@ function App() {
             </Box>
           </Paper>
         </Grid>
-            { console.log(data) }
             { loading ? <p>Loading...</p> : null}
             { error ? <p>{error}</p> : null }
             { data ?
@@ -363,8 +358,8 @@ function App() {
                 {pokemon.types ? <Typography><b>Types:</b> {pokemon.types.toString()} </Typography> : null}
                 {pokemon.resistant ? <Typography><b>Resistant:</b> {pokemon.resistant.toString()} </Typography> : null}
                 {pokemon.weaknesses ? <Typography><b>Weaknesses:</b> {pokemon.weaknesses.toString()} </Typography> : null}
-                {pokemon.evolutions ? pokemon.evolutions.map(pokemonEvo => (
-                  <div>
+                {pokemon.evolutions ? pokemon.evolutions.map((pokemonEvo,index) => (
+                  <div key={index}>
                     <Box pt={1} pb={1}>
                     <Divider orientation="horizontal" />
                     </Box>
