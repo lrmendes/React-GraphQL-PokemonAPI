@@ -92,7 +92,7 @@ function App() {
   const [stringQuery, setStringQuery] = useState(`{\n  pokemons(first: 60) {\n\tnumber,\n\tname,\n\timage,\n  }\n}`);
 
   function createQuery() {
-    let newQuery = `{\n  pokemons(first: 30) {\n`;
+    let newQuery = `{\n  pokemons(first: 60) {\n`;
     (query.cbId !== false ? newQuery = newQuery.concat("\tid,\n") : newQuery = newQuery.concat(""));
     (query.cbNumber !== false ? newQuery = newQuery.concat("\tnumber,\n") : newQuery = newQuery.concat(""));
     (query.cbName !== false ? newQuery = newQuery.concat("\tname,\n") : newQuery = newQuery.concat(""));
