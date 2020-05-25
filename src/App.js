@@ -89,7 +89,7 @@ function App() {
     cbEvolutionName: false,
   });
 
-  const [stringQuery, setStringQuery] = useState(`{\n  pokemons(first: 30) {\n\tnumber,\n\tname,\n\timage,\n  }\n}`);
+  const [stringQuery, setStringQuery] = useState(`{\n  pokemons(first: 60) {\n\tnumber,\n\tname,\n\timage,\n  }\n}`);
 
   function createQuery() {
     let newQuery = `{\n  pokemons(first: 30) {\n`;
