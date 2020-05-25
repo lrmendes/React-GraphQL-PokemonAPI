@@ -36,6 +36,13 @@ const styles = makeStyles((theme) => ({
   pokeImg: {
     width: 150,
     height: 150,
+  },
+  pokeEvoImg: {
+    width: 50,
+    height: 50,
+  },
+  specialCheck: {
+    color: "#0000ff",
   }
 }));
 
@@ -53,10 +60,14 @@ function App() {
     cbWeaknesses: false,               // Array String
     cbFleeRate: false,
     cbMaxCP: false,
-    evolutions: false,             // Array Pokemon
+    cbEvolutions: false,             // Array Pokemon
     evolutionRequirements: false,  // Array PokemonEvolutionRequirement
     cbMaxHP: false,
     cbImage: true,
+    cbEvolutionImage: true,
+    cbEvolutionId: false,
+    cbEvolutionNumber: false,
+    cbEvolutionName: false,
   });
 
   const [state, setState] = React.useState({
@@ -71,6 +82,11 @@ function App() {
     cbTypes: false,
     cbResistant: false,
     cbWeaknesses: false,
+    cbEvolutions: false,
+    cbEvolutionImage: true,
+    cbEvolutionId: false,
+    cbEvolutionNumber: false,
+    cbEvolutionName: false,
   });
 
   const [stringQuery, setStringQuery] = useState(`{\n  pokemons(first: 30) {\n\tnumber,\n\tname,\n\timage,\n  }\n}`);
@@ -87,14 +103,23 @@ function App() {
     (query.cbTypes !== false ? newQuery = newQuery.concat("\ttypes,\n") : newQuery = newQuery.concat(""));
     (query.cbResistant !== false ? newQuery = newQuery.concat("\tresistant,\n") : newQuery = newQuery.concat(""));
     (query.cbWeaknesses !== false ? newQuery = newQuery.concat("\tweaknesses,\n") : newQuery = newQuery.concat(""));
-
     (query.cbImage !== false ? newQuery = newQuery.concat("\timage,\n") : newQuery = newQuery.concat(""));
+
+    if(query.cbEvolutions !== false) {
+      newQuery = newQuery.concat(`\tevolutions {\n`);
+      (query.cbEvolutionId !== false ? newQuery = newQuery.concat("\t\tid,\n") : newQuery = newQuery.concat(""));
+      (query.cbEvolutionNumber !== false ? newQuery = newQuery.concat("\t\tnumber,\n") : newQuery = newQuery.concat(""));
+      (query.cbEvolutionName !== false ? newQuery = newQuery.concat("\t\tname,\n") : newQuery = newQuery.concat(""));
+      (query.cbEvolutionImage !== false ? newQuery = newQuery.concat("\t\timage,\n") : newQuery = newQuery.concat(""));
+      newQuery = newQuery.concat(`\t}\n`)
+    }
+
     newQuery = newQuery.concat(`  }\n}`);
 
     setStringQuery(newQuery);
 
-    console.log(newQuery.toString());
-    console.log(query);
+    //console.log(newQuery.toString());
+    //console.log(newQuery);
     return
   }
 
@@ -149,10 +174,35 @@ function App() {
     }
   }
 
+  function isOneCheckedQuery2() {
+    let checked = 0;
+    if (state.cbEvolutionId) 
+      checked += 1;
+    if (state.cbEvolutionNumber) 
+      checked += 1;
+    if (state.cbEvolutionName) 
+      checked += 1;
+    if (state.cbEvolutionImage) 
+      checked += 1;
+
+    if (checked > 1) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   const handleChange = (event) => {
     if (!event.target.checked) {
-      if (!isOneCheckedQuery1()) {
-        return alert("Almost one item need to exists in the query!")
+      if (event.target.name == "cbEvolutionId" ||event.target.name == "cbEvolutionNumber" ||
+          event.target.name == "cbEvolutionImage" ||event.target.name == "cbEvolutionName" ) {
+            if (!isOneCheckedQuery2()) {
+              return alert("GraphQL needs at least one variable in the Evolutions Query!")
+            }    
+      } else {
+        if (!isOneCheckedQuery1()) {
+          return alert("GraphQL needs at least one variable in the query!")
+        }
       }
     }
     setState({ ...state, [event.target.name]: event.target.checked });
@@ -187,6 +237,7 @@ function App() {
             <Grid item xs={6} sm={6}>
               <Paper className={classes.paper2}>
                 <Typography variant="body1">Pokemon Attributes</Typography>
+                <Divider orientation="horizontal" />
                 <Grid item container justify="space-between">
                 <FormControlLabel
                   control={<Checkbox checked={state.cbId} onChange={handleChange} name="cbId" />}
@@ -240,26 +291,36 @@ function App() {
                 control={<Checkbox checked={state.cbWeaknesses} onChange={handleChange} name="cbWeaknesses" />}
                 label="Weaknesses"
               /> 
+
+              <FormControlLabel
+                className={classes.specialCheck}
+                control={<Checkbox className={classes.specialCheck} checked={state.cbEvolutions} onChange={handleChange} name="cbEvolutions" />}
+                label="Evolutions"
+              />
               </Grid>
               </Paper>
               </Grid>
               <Grid item xs={6} sm={6}>
               <Paper className={classes.paper2}>
-              <Typography variant="body1">Evolution Attributes</Typography>
+              <Typography variant="body1">Pokemon Evolutions</Typography>
+              <Divider orientation="horizontal" />
               <FormControlLabel
-                control={<Checkbox checked={state.checkedA} disabled onChange={handleChange} name="checkedA" />}
+                control={<Checkbox checked={state.cbEvolutionId} disabled={!state.cbEvolutions} onChange={handleChange} name="cbEvolutionId" />}
                 label="ID"
               />
+
               <FormControlLabel
-                control={<Checkbox checked={state.checkedB} disabled onChange={handleChange} name="checkedB" />}
+                control={<Checkbox checked={state.cbEvolutionNumber} disabled={!state.cbEvolutions} onChange={handleChange} name="cbEvolutionNumber" />}
                 label="Number"
               />
+
               <FormControlLabel
-                control={<Checkbox checked={state.checkedC} disabled onChange={handleChange} name="checkedC" />}
+                control={<Checkbox checked={state.cbEvolutionName} disabled={!state.cbEvolutions} onChange={handleChange} name="cbEvolutionName" />}
                 label="Name"
               />
+
               <FormControlLabel
-                control={<Checkbox checked={state.checkedD} disabled onChange={handleChange} name="checkedD" />}
+                control={<Checkbox checked={state.cbEvolutionImage} disabled={!state.cbEvolutions} onChange={handleChange} name="cbEvolutionImage" />}
                 label="Image"
               />
               </Paper>
@@ -302,6 +363,18 @@ function App() {
                 {pokemon.types ? <Typography><b>Types:</b> {pokemon.types.toString()} </Typography> : null}
                 {pokemon.resistant ? <Typography><b>Resistant:</b> {pokemon.resistant.toString()} </Typography> : null}
                 {pokemon.weaknesses ? <Typography><b>Weaknesses:</b> {pokemon.weaknesses.toString()} </Typography> : null}
+                {pokemon.evolutions ? pokemon.evolutions.map(pokemonEvo => (
+                  <div>
+                    <Box pt={1} pb={1}>
+                    <Divider orientation="horizontal" />
+                    </Box>
+                    <Typography><b>Evolutions:</b></Typography>
+                    {pokemonEvo.image ? <img src={pokemonEvo.image} className={classes.pokeEvoImg} alt="Pokemon Evolution"/> : null}
+                    {pokemonEvo.id ? <Typography variant="body2"><b>ID:</b> {pokemonEvo.id}</Typography> : null}
+                    {pokemonEvo.number ? <Typography variant="body2"><b>Number:</b> {pokemonEvo.number}</Typography> : null}
+                    {pokemonEvo.name ? <Typography variant="body2"><b>Name:</b> {pokemonEvo.name}</Typography> : null}
+                  </div>
+                )) : null}
                 </Paper>
               </Grid>
               ))
