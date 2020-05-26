@@ -43,10 +43,18 @@ const styles = makeStyles((theme) => ({
   },
   specialCheck: {
     color: "#0000ff",
+  },
+  first: {
+    color: "#0000ff"
   }
 }));
 
 function App() {
+
+  const [preFirst,setPreFirst] = useState("60");
+  const [first,setFirst] = useState(60);
+  
+
   const [query,setQuery] = useState({
     cbId: false,
     cbNumber: true,
@@ -89,10 +97,10 @@ function App() {
     cbEvolutionName: false,
   });
 
-  const [stringQuery, setStringQuery] = useState(`{\n  pokemons(first: 60) {\n\tnumber,\n\tname,\n\timage,\n  }\n}`);
+  const [stringQuery, setStringQuery] = useState(`{\n  pokemons(first: ${first}) {\n\tnumber,\n\tname,\n\timage,\n  }\n}`);
 
   function createQuery() {
-    let newQuery = `{\n  pokemons(first: 60) {\n`;
+    let newQuery = `{\n  pokemons(first: ${first}) {\n`;
     (query.cbId !== false ? newQuery = newQuery.concat("\tid,\n") : newQuery = newQuery.concat(""));
     (query.cbNumber !== false ? newQuery = newQuery.concat("\tnumber,\n") : newQuery = newQuery.concat(""));
     (query.cbName !== false ? newQuery = newQuery.concat("\tname,\n") : newQuery = newQuery.concat(""));
@@ -143,6 +151,15 @@ function App() {
 
   const GET_POKEMON_INFO = gql(stringQuery);
   const {data, loading, error} = useQuery(GET_POKEMON_INFO);
+
+  async function setQueryFirst() {
+    if (Number.isInteger(parseInt(preFirst))) {
+      if (preFirst >= 1 && preFirst <= 151) {
+        return setFirst(parseInt(preFirst));
+      }
+    }
+    return alert("First Attribute needs a integer value between 1 and 151.");
+  }
 
   function isOneCheckedQuery1() {
     let checked = 0;
@@ -211,7 +228,7 @@ function App() {
 
   useEffect(() => {
     createQuery();
-  },[query]);
+  },[query,first]);
 
   const classes = styles();
 
@@ -296,7 +313,7 @@ function App() {
               <Grid item xs={12} sm={6}>
               <Box mb={1}>
                 <Paper className={classes.paper2}>
-                  <Typography variant="body1">Pokemon Array List Size</Typography>
+                  <Typography variant="body1">Pokemon Query List Size</Typography>
                   <Divider orientation="horizontal" />
                   <Grid item container  direction="row" justify="center" alignItems="center">
                   <Box mt={1} mr={1}>
@@ -305,21 +322,27 @@ function App() {
                   <Box mt={1} ml={1}>
                   <TextField
                     style={{maxWidth: 80}}
+                    color={"primary"}
                     id="standard-number"
                     placeholder="First"
+                    onChange={(e) => setPreFirst(e.target.value)}
+                    value={preFirst}
                     type="number"
                     InputLabelProps={{
                       shrink: true,
                     }}
+                    InputProps={{
+                      className: classes.first,
+                    }}
                   />
                   </Box>
                   <Box mt={1} ml={1}>
-                  <Button variant="contained" color="secondary">
+                  <Button variant="contained" color="secondary" onClick={setQueryFirst}>
                     Set Size
                   </Button>
                   </Box>
                   <Box mt={1}>
-                  <Typography variant="body2">First Attribute: (min: 1, max:151)</Typography>
+                  <Typography variant="body2" >First Attribute: (min: 1, max:151)</Typography>
                   </Box>
                   </Grid>
                 </Paper>
