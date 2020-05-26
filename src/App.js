@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import { Grid, Paper, Typography, Divider, Box, FormControlLabel, Checkbox } from '@material-ui/core';
+import { Grid, Paper, Typography, Divider, Box, FormControlLabel, Checkbox,TextField, Button } from '@material-ui/core';
 import { useQuery } from '@apollo/react-hooks';
 import gql from "graphql-tag";
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -227,9 +227,6 @@ function App() {
               <Divider orientation="horizontal" />
             </Box>
             <Grid container direction="row" spacing={2}>
-            <Grid item xs={12} sm={12}>
-
-            </Grid>
             <Grid item xs={12} sm={6}>
               <Paper className={classes.paper2}>
                 <Typography variant="body1">Pokemon Attributes</Typography>
@@ -297,29 +294,61 @@ function App() {
               </Paper>
               </Grid>
               <Grid item xs={12} sm={6}>
-              <Paper className={classes.paper2}>
-              <Typography variant="body1">Pokemon Evolutions</Typography>
-              <Divider orientation="horizontal" />
-              <FormControlLabel
-                control={<Checkbox checked={state.cbEvolutionId} disabled={!state.cbEvolutions} onChange={handleChange} name="cbEvolutionId" />}
-                label="ID"
-              />
+              <Box mb={1}>
+                <Paper className={classes.paper2}>
+                  <Typography variant="body1">Pokemon Array List Size</Typography>
+                  <Divider orientation="horizontal" />
+                  <Grid item container  direction="row" justify="center" alignItems="center">
+                  <Box mt={1} mr={1}>
+                  <Typography variant="body1">List Size: </Typography>
+                  </Box>
+                  <Box mt={1} ml={1}>
+                  <TextField
+                    style={{maxWidth: 80}}
+                    id="standard-number"
+                    placeholder="First"
+                    type="number"
+                    InputLabelProps={{
+                      shrink: true,
+                    }}
+                  />
+                  </Box>
+                  <Box mt={1} ml={1}>
+                  <Button variant="contained" color="secondary">
+                    Set Size
+                  </Button>
+                  </Box>
+                  <Box mt={1}>
+                  <Typography variant="body2">First Attribute: (min: 1, max:151)</Typography>
+                  </Box>
+                  </Grid>
+                </Paper>
+              </Box>
+              <Box mt={1}>
+                <Paper className={classes.paper2}>
+                <Typography variant="body1">Pokemon Evolutions</Typography>
+                <Divider orientation="horizontal" />
+                <FormControlLabel
+                  control={<Checkbox checked={state.cbEvolutionId} disabled={!state.cbEvolutions} onChange={handleChange} name="cbEvolutionId" />}
+                  label="ID"
+                />
 
-              <FormControlLabel
-                control={<Checkbox checked={state.cbEvolutionNumber} disabled={!state.cbEvolutions} onChange={handleChange} name="cbEvolutionNumber" />}
-                label="Number"
-              />
+                <FormControlLabel
+                  control={<Checkbox checked={state.cbEvolutionNumber} disabled={!state.cbEvolutions} onChange={handleChange} name="cbEvolutionNumber" />}
+                  label="Number"
+                />
 
-              <FormControlLabel
-                control={<Checkbox checked={state.cbEvolutionName} disabled={!state.cbEvolutions} onChange={handleChange} name="cbEvolutionName" />}
-                label="Name"
-              />
+                <FormControlLabel
+                  control={<Checkbox checked={state.cbEvolutionName} disabled={!state.cbEvolutions} onChange={handleChange} name="cbEvolutionName" />}
+                  label="Name"
+                />
 
-              <FormControlLabel
-                control={<Checkbox checked={state.cbEvolutionImage} disabled={!state.cbEvolutions} onChange={handleChange} name="cbEvolutionImage" />}
-                label="Image"
-              />
-              </Paper>
+                <FormControlLabel
+                  control={<Checkbox checked={state.cbEvolutionImage} disabled={!state.cbEvolutions} onChange={handleChange} name="cbEvolutionImage" />}
+                  label="Image"
+                />
+                </Paper>
+              </Box>
               </Grid>
             </Grid>
           </Paper>
