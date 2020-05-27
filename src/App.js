@@ -1,9 +1,12 @@
 import React, {useState, useEffect} from 'react';
-import { Grid, Paper, Typography, Divider, Box, FormControlLabel, Checkbox,TextField, Button } from '@material-ui/core';
+import { Grid, Paper, Typography, Divider, Box, FormControlLabel, Checkbox,TextField, Button, Fab } from '@material-ui/core';
 import { useQuery } from '@apollo/react-hooks';
 import gql from "graphql-tag";
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { makeStyles } from '@material-ui/core/styles';
+import GitHubIcon from '@material-ui/icons/GitHub';
+import LinkedInIcon from '@material-ui/icons/LinkedIn';
+import EmailIcon from '@material-ui/icons/Email';
 
 const styles = makeStyles((theme) => ({
   root: {
@@ -45,7 +48,14 @@ const styles = makeStyles((theme) => ({
     color: "#0000ff",
   },
   first: {
-    color: "#0000ff"
+    color: "#0000ff",
+  },
+  extendedIcon: {
+    marginRight: theme.spacing(1),
+  },
+  extendedFab: {
+    marginRight: theme.spacing(1),
+    marginTop: theme.spacing(1),
   }
 }));
 
@@ -235,6 +245,21 @@ function App() {
   return (
     <div className={classes.root}>
     <CssBaseline />
+    <Grid item container justify="center">
+            <Fab color="secondary" variant="extended" className={classes.extendedFab} href="https://github.com/lrmendes/React-GraphQL-PokemonAPI" target="_blank">
+              <GitHubIcon className={classes.extendedIcon} />
+              View Source
+            </Fab>
+            <Fab color="secondary" variant="extended" className={classes.extendedFab} aria-label="linkedin" href="https://www.linkedin.com/in/lucas-ribeiro-mendes-913b8b15b/" target="_blank">
+              <LinkedInIcon className={classes.extendedIcon} />
+              Linkedin
+            </Fab>
+            <Fab color="secondary" variant="extended" className={classes.extendedFab} aria-label="mail"  href="mailto:lrmen14@gmail.com" target="_blank">
+              <EmailIcon className={classes.extendedIcon} />
+              Mail
+            </Fab>
+          
+          </Grid>
     <Grid container justify="center" className={classes.firstGrid}>
     <Grid container item xs={11} className={classes.maingrid} spacing={3}>
         <Grid item xs={12} sm={6}>
@@ -244,7 +269,7 @@ function App() {
               <Divider orientation="horizontal" />
             </Box>
             <Grid container direction="row" spacing={2}>
-            <Grid item xs={12} sm={6}>
+            <Grid item xs={12} md={6} sm={6}>
               <Paper className={classes.paper2}>
                 <Typography variant="body1">Pokemon Attributes</Typography>
                 <Divider orientation="horizontal" />
@@ -373,8 +398,10 @@ function App() {
                 </Paper>
               </Box>
               </Grid>
+            <Divider />
             </Grid>
           </Paper>
+
         </Grid>
         <Grid item xs={12} sm={6}>
           <Paper className={classes.paper}>
