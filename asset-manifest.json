@@ -1,22 +1,22 @@
 {
   "files": {
     "main.css": "/React-GraphQL-PokemonAPI/static/css/main.4cfb0791.chunk.css",
-    "main.js": "/React-GraphQL-PokemonAPI/static/js/main.e636379f.chunk.js",
-    "main.js.map": "/React-GraphQL-PokemonAPI/static/js/main.e636379f.chunk.js.map",
+    "main.js": "/React-GraphQL-PokemonAPI/static/js/main.c44335ff.chunk.js",
+    "main.js.map": "/React-GraphQL-PokemonAPI/static/js/main.c44335ff.chunk.js.map",
     "runtime-main.js": "/React-GraphQL-PokemonAPI/static/js/runtime-main.f05ad6b4.js",
     "runtime-main.js.map": "/React-GraphQL-PokemonAPI/static/js/runtime-main.f05ad6b4.js.map",
-    "static/js/2.dce9029d.chunk.js": "/React-GraphQL-PokemonAPI/static/js/2.dce9029d.chunk.js",
-    "static/js/2.dce9029d.chunk.js.map": "/React-GraphQL-PokemonAPI/static/js/2.dce9029d.chunk.js.map",
+    "static/js/2.0b1d4cf1.chunk.js": "/React-GraphQL-PokemonAPI/static/js/2.0b1d4cf1.chunk.js",
+    "static/js/2.0b1d4cf1.chunk.js.map": "/React-GraphQL-PokemonAPI/static/js/2.0b1d4cf1.chunk.js.map",
     "index.html": "/React-GraphQL-PokemonAPI/index.html",
-    "precache-manifest.061bdae48bc4b6c78b3a90ef9d4bd59c.js": "/React-GraphQL-PokemonAPI/precache-manifest.061bdae48bc4b6c78b3a90ef9d4bd59c.js",
+    "precache-manifest.1cc88d1a1325b0585873703861292e96.js": "/React-GraphQL-PokemonAPI/precache-manifest.1cc88d1a1325b0585873703861292e96.js",
     "service-worker.js": "/React-GraphQL-PokemonAPI/service-worker.js",
     "static/css/main.4cfb0791.chunk.css.map": "/React-GraphQL-PokemonAPI/static/css/main.4cfb0791.chunk.css.map",
-    "static/js/2.dce9029d.chunk.js.LICENSE.txt": "/React-GraphQL-PokemonAPI/static/js/2.dce9029d.chunk.js.LICENSE.txt"
+    "static/js/2.0b1d4cf1.chunk.js.LICENSE.txt": "/React-GraphQL-PokemonAPI/static/js/2.0b1d4cf1.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.f05ad6b4.js",
-    "static/js/2.dce9029d.chunk.js",
+    "static/js/2.0b1d4cf1.chunk.js",
     "static/css/main.4cfb0791.chunk.css",
-    "static/js/main.e636379f.chunk.js"
+    "static/js/main.c44335ff.chunk.js"
   ]
 }
