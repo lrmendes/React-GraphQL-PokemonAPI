@@ -14,7 +14,7 @@ You Can acess the system in this link: https://lrmendes.github.io/React-GraphQL-
 
 ## How it works?
 
-The System allow user to build your own pokemon graphql query. by choosing custom attributes for the query return.
+The System allow user to build your own pokemon graphql query, choosing custom attributes for the query return.
 
 The system contains many attributes of a pokemon and a subquery for pokemon evolutions, which returned a list of pokemon within the same object. You can still choose the attributes you need from the evolution subquery.
 
